@@ -2,13 +2,35 @@ const dotenv = require('dotenv').config();
 const express =  require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const coes = require('cors');
+const cors = require('cors');
+const userRoutes = require("./routes/userRoutes");
+const errorHandler = require("./middleWare/errorMiddleware");
+
+
 
 const app = express();
 
+//MIddleares
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+app.use(bodyParser.json());
+
+
+// routes middleware
+app.use("/api/users", userRoutes);
+
+//Routes
+app.get("/", (req, res) => {
+    res.send("Home Page");
+});
+
+//errorhandler middleware 
+app.use(errorHandler);
+
+
+// Connect to db and start server  
 const PORT = process.env.PORT || 5000;
 
-// Connect to db and start server
 mongoose
 .connect(process.env.MONGO_URI)
 .then (() =>{ 
