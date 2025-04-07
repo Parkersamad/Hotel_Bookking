@@ -27,16 +27,17 @@ const registerUser = asyncHandler (async(req, res) => {
     const user = await User.create({
         name,
         email,
-        passowrd,
+        password ,
     })
 
     if (user) {
         const {_id, name , email ,phone} = user;
         res.status(201).json({
-            id, name , email ,phone
-        })
-    }
+            _id, name , email ,phone
+        });
 
+    }
+    
       else {
             res.status(400);
             throw new Error("Invalid user data");
