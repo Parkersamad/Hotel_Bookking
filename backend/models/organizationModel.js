@@ -2,39 +2,30 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 
-const organisationSchema = new mongoose.Schema({
+const organizationSchema = new mongoose.Schema({
   name: {
     type: String,
-    requirred: [true, "pLease add your organization name"],
+    required: [true, "pLease add your organization name"],
     trim: true,
-    unique: [true, "Organisation already exixts"],
+    unique: [true, "Organization already exixts"],
   },  
   email: {
     type: String,
     required: [true, "Please add an email"],
     trim: true,
     unique: [true, "Organization already exists!"],
-    validate: [validater.isEmail, "Please add a valid email!"],
+    validate: [validator.isEmail, "Please add a valid email!"],
   },
-  password: {
+  phone: {
     type: String,
-    required: [true, "Please add a password!"],
-    trim: true,
-    minLenght: [6, "Password must be up to 6 characters!"],
-    maxLenght: [16, "Password must not exceed 16 characters!"],
-    validate: [validator.isStrongPassowrd, "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"],
-    select: false, // this will not show password in the response
-  },
-  confirmPasswird: {
-    type: String,
-    required: [true, "Confirm passowrd is required"],
+    required: [true, "Please add a phone number!"],
     trim: true,
     validate: {
-        validator: function(v) {
-            return v === this.password;
-        },
-        message: 'Passwords do not match!'
-    }
+      validator: function(v) {
+        return /^0[7-9][01][0-9]{8}/.test(v);
+      },
+      message: props => `${props.value} is not a valid phone number!`,
+    },
   },
   createdAt: {
     type: Date,
@@ -44,6 +35,6 @@ const organisationSchema = new mongoose.Schema({
   timestamps: true,
 });
 
-const Organisation = mongoose.model("Organisation", organisationSchema);
-module.exports = Organisation;
+const Organization = mongoose.model("Organization", organizationSchema);
+module.exports = Organization;
 // const Organisation = mongoose.model("Organisation", organisationSchema);
