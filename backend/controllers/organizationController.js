@@ -1,6 +1,12 @@
 const asyncHandler = require("express-async-handler");
 const Organization = require("../models/organizationModel");
 const User = require("../models/userModel");
+const jwt = require("jsonwebtoken");
+
+const generateToken = (id) => {
+  return jwt.sign({id}, process.env.JWT_SECRET,  {expiresIn: "1d"})
+}
+
 
 const registerOrganization = asyncHandler(async (req, res) => {
   const {
@@ -37,6 +43,7 @@ const registerOrganization = asyncHandler(async (req, res) => {
     phone,
   });
 
+
   // create new user
   const user = await User.create({
     organization: organization._id,
@@ -50,16 +57,19 @@ const registerOrganization = asyncHandler(async (req, res) => {
       createItem: true,
       updateItem: true,
       deleteItem: true,
-      viewreports: true,
+      viewreports: true, 
       manageUsers: true,
     },
   });
 
-  if (organization) {
+  //Generate token
+  const token = generateToken(organization._id);
 
+  if (organization) {
     res.status(201).json({
       organization,
       user,
+      token,
     });
   } else {
     res.status(400);
