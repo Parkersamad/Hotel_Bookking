@@ -7,7 +7,7 @@ const generateToken = (id) => {
   return jwt.sign({id}, process.env.JWT_SECRET,  {expiresIn: "1d"})
 }
 
-
+// register organisation
 const registerOrganization = asyncHandler(async (req, res) => {
   const {
     name,
@@ -85,6 +85,13 @@ const registerOrganization = asyncHandler(async (req, res) => {
     throw new Error("Invalid user data");
   }
 });
+
+//Login organization
+const loginOrganization = asyncHandler(async (req, res) => {
+  res.send("Login organization");
+});
+
 module.exports = {
   registerOrganization,
+  loginOrganization,
 };
