@@ -6,13 +6,16 @@ const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
 const organizationRoutes = require("./routes/organizationRoutes");
 const errorHandler = require("./middleWare/errorMiddleware");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
 //MIddleares
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 
 // routes middleware
 app.use("/api/organizations", organizationRoutes);

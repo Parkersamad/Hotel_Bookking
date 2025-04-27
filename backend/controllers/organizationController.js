@@ -65,6 +65,15 @@ const registerOrganization = asyncHandler(async (req, res) => {
   //Generate token
   const token = generateToken(organization._id);
 
+  // send HTTP-only cookie
+  res.cookie("token", token, {
+    path : "/",
+    httpOnly: true,
+    expires: new Date(Date.now() +1000 * 86400), // 1day
+    sameSite: "none",
+    secure: true,
+  })
+
   if (organization) {
     res.status(201).json({
       organization,
