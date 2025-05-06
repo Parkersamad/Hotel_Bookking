@@ -10,7 +10,7 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 
-//MIddleares
+//Middlewares
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
@@ -19,10 +19,10 @@ app.use(bodyParser.json());
 
 // routes middleware
 app.use("/api/organizations", organizationRoutes);
-app.use("/api/users", userRoutes);
+app.use("/api/user", userRoutes);
 
 //Routes
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => {
   res.send("Home Page");
 });
 
@@ -30,7 +30,7 @@ app.get("/", (req, res) => {
 app.use(errorHandler);
 
 // Connect to db and start server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 mongoose
   .connect(process.env.MONGO_URI)

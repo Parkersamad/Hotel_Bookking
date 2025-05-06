@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const Organization = require("../models/organizationModel");
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 const generateToken = (id) => {
   return jwt.sign({id}, process.env.JWT_SECRET,  {expiresIn: "1d"})
@@ -84,14 +85,12 @@ const registerOrganization = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Invalid user data");
   }
-});
+});  
 
-//Login organization
-const loginOrganization = asyncHandler(async (req, res) => {
-  res.send("Login organization");
-});
+
+
+
 
 module.exports = {
   registerOrganization,
-  loginOrganization,
-};
+}  

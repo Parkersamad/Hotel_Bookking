@@ -30,7 +30,7 @@ const userSchema = mongoose.Schema(
         },
         message: (props) => `${props.value} is not a valid phone number!`,
       },
-    },
+    }, 
     password: {
       type: String,
       required: [true, "Please add a password"],

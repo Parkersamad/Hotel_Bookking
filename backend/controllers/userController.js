@@ -47,6 +47,40 @@ const registerUser = asyncHandler (async(req, res) => {
             throw new Error("Invalid user data");
       }
 });
+
+// user login
+const loginUser = asyncHandler(async (req, res) => {
+    const {email, password} = req.body;
+
+    //Validate Request
+    if (!email || !password) {
+        res.status(400);
+        throw new Error("Please fill in all the required fields")
+    }
+
+    // check if user exixts
+    const user = await User.findOne({ email });
+
+    if (!user || !user.password) {
+        res.status(400);
+        throw new Error("User does not exist")
+    }
+
+    // check if password is correct
+    const passwordIsCorrect = await bcrypt.compare(password, user.password);
+
+    if (user && passwordIsCorrect) {
+        const {_id, name, email} = user;
+        res.status(200).json({
+            _id,
+            name,
+            email,
+        });
+    }
+
+   
+});
 module.exports = {
     registerUser,
+    loginUser,
 };
