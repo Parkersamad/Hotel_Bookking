@@ -61,9 +61,9 @@ const loginUser = asyncHandler(async (req, res) => {
     // check if user exixts
     const user = await User.findOne({ email });
 
-    if (!user || !user.password) {
+    if (!user) {
         res.status(400);
-        throw new Error("User does not exist")
+        throw new Error("User does not exist please register");
     }
 
     // check if password is correct

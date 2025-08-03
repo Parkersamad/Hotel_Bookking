@@ -4,9 +4,10 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
-const organizationRoutes = require("./routes/organizationRoutes");
+const bookingRoutes = require("./routes/bookingRoutes");
 const errorHandler = require("./middleWare/errorMiddleware");
 const cookieParser = require("cookie-parser");
+const validator = require("validator");
 
 const app = express();
 
@@ -16,10 +17,9 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-
 // routes middleware
-app.use("/api/organizations", organizationRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/bookings",bookingRoutes);
 
 //Routes
 app.get("/", (_req, res) => {
