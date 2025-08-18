@@ -8,6 +8,7 @@ const bookingRoutes = require("./routes/bookingRoutes");
 const errorHandler = require("./middleWare/errorMiddleware");
 const cookieParser = require("cookie-parser");
 const validator = require("validator");
+const RoomCategoryRoutes = require("./routes/roomCategoryRoutes");
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 // routes middleware
 app.use("/api/user", userRoutes);
 app.use("/api/bookings",bookingRoutes);
+app.use("/api/roomCategories",RoomCategoryRoutes);
 
 //Routes
 app.get("/", (_req, res) => {

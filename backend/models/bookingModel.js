@@ -40,12 +40,6 @@ const bookingSchema = mongoose.Schema(
         message: (props) => `${props.value} is not a valid phone number!`,
       },
     },
-    roomNumber: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Room",
-      required: [true, "Please select a room number"],
-      trim: true,
-    },
     checkInDate: {
       type: Date,
       required: [true, "Please add a check-in date"],
@@ -67,7 +61,7 @@ const bookingSchema = mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["pending", "Booked", "checkedIn", "checkedOut", "cancelled"],
+      enum: ["pending", "Booked", "cancelled"],
       default: "pending",
     },
   },
