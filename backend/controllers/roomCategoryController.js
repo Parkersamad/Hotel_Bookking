@@ -59,7 +59,7 @@ const seedCategories = asyncHandler(async (req, res) => {
       totalRooms: 2,
       avalibleRooms: 2,
       description: "Ultimate luxury suite",
-    },
+    }
   ];
 
   for (const category of defaultCategories) {

@@ -16,7 +16,7 @@ const createBooking = asyncHandler(async (req, res) => {
     guestName,
     guestEmail,
     guestPhone,
-    roomCategory, // this is the category _id
+    roomCategory, // this is the category name
     checkInDate,
     checkOutDate,
     numberOfGuests,
